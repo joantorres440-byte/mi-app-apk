@@ -1,4 +1,4 @@
-name: Compilar APK con Buildozer Docker
+name: Compilar APK con Docker Nativo
 
 on:
   workflow_dispatch:
@@ -11,10 +11,9 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v4
 
-      - name: Compilar APK usando Docker oficial de Kivy
-        uses: kivy/buildozer-action@master
-        with:
-          command: android debug
+      - name: Ejecutar Buildozer mediante contenedor Docker oficial
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/home/user/hostcwd kivy/buildozer android debug
 
       - name: Subir APK como artefacto
         uses: actions/upload-artifact@v4
