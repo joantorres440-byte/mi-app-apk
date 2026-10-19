@@ -15,8 +15,8 @@ source.dir = .
 # (list) Source files to include (let empty to include all files)
 source.exts = py,png,jpg,kv,atlas
 
-# (list) Application requirements
-requirements = python3,kivy
+# (list) Application requirements (Forzamos Python 3.11 y Kivy compatible)
+requirements = python3==3.11.0,kivy==2.3.0
 
 # (str) Version of the application
 version = 0.1
@@ -46,8 +46,8 @@ android.archs = arm64-v8a
 # (bool) Automatically accept Android SDK license agreements
 android.accept_sdk_license = True
 
-# (str) python-for-android branch to use
-p4a.branch = master
+# (str) python-for-android branch to use (Rama estable)
+p4a.branch = release-2024.01.first
 
-# (bool) Build parallel extensions to optimize build time and memory usage
+# (bool) Build parallel extensions
 build_ext_parallel = True
