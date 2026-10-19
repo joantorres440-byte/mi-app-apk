@@ -16,8 +16,10 @@ source.dir = .
 source.exts = py,png,jpg,kv,atlas
 
 # (list) Application requirements
-# (Make sure to add your app requirements here, e.g., kivy, requests, etc.)
 requirements = python3,kivy
+
+# (str) Version of the application
+version = 0.1
 
 # (list) Supported orientations
 orientation = portrait
