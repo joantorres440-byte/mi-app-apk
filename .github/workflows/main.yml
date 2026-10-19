@@ -11,10 +11,52 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v4
 
-      - name: Compilar APK usando contenedor estable de Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        with:
-          command: android debug
+      - name: Instalar Python 3.10 y dependencias limpias
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3.10 python3.10-dev python3.10-venv python3-pip
+          sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 100
+
+      - name: Instalar dependencias del sistema de Buildozer
+        run: |
+          sudo apt-get install -y \
+            build-essential \
+            git \
+            ffmpeg \
+            libsdl2-dev \
+            libsdl2-image-dev \
+            libsdl2-mixer-dev \
+            libsdl2-ttf-dev \
+            libswscale-dev \
+            libsm6 \
+            libxext6 \
+            zlib1g-dev \
+            openjdk-17-jdk \
+            autoconf \
+            libtool \
+            pkg-config \
+            libncurses5-dev \
+            libncursesw5-dev \
+            libreadline6-dev \
+            libdb5.3-dev \
+            libgdbm-dev \
+            libsqlite3-dev \
+            libbz2-dev \
+            libexpat1-dev \
+            lzma \
+            lzma-dev \
+            libffi-dev \
+            libzip-dev
+
+      - name: Instalar Buildozer y Cython
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install cython==0.29.33
+          pip install buildozer
+
+      - name: Compilar APK con Buildozer
+        run: |
+          buildozer -v android debug
 
       - name: Subir APK como artefacto
         uses: actions/upload-artifact@v4
