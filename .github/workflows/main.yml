@@ -1,0 +1,67 @@
+name: Compilar APK con Buildozer
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependencias del sistema
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            python3-pip \
+            build-essential \
+            git \
+            ffmpeg \
+            libsdl2-dev \
+            libsdl2-image-dev \
+            libsdl2-mixer-dev \
+            libsdl2-ttf-dev \
+            libswscale-dev \
+            libsm6 \
+            libxext6 \
+            libgstreamer1.0-dev \
+            zlib1g-dev \
+            openjdk-17-jdk \
+            autoconf \
+            libtool \
+            pkg-config \
+            libncurses5-dev \
+            libncursesw5-dev \
+            libreadline6-dev \
+            libdb5.3-dev \
+            libgdbm-dev \
+            libsqlite3-dev \
+            libbz2-dev \
+            libexpat1-dev \
+            lzma \
+            lzma-dev \
+            libffi-dev \
+            libzip-dev
+
+      - name: Instalar Buildozer y Cython
+        run: |
+          pip install --upgrade pip
+          pip install cython==0.29.33
+          pip install buildozer
+
+      - name: Compilar APK con Buildozer
+        run: |
+          buildozer -v android debug
+
+      - name: Subir APK como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-apk
+          path: bin/*.apk
