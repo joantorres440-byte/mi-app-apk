@@ -1,4 +1,4 @@
-name: Compilar APK con Docker Nativo
+name: Compilar APK Directo
 
 on:
   workflow_dispatch:
@@ -11,9 +11,21 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v4
 
-      - name: Ejecutar Buildozer con registro detallado
+      - name: Preparar Java y Dependencias
         run: |
-          docker run --rm -v ${{ github.workspace }}:/home/user/hostcwd kivy/buildozer -v android debug log_level=2
+          sudo apt-get update
+          sudo apt-get install -y openjdk-17-jdk git zip unzip build-essential ccache libncurses5:i386 libstdc++6:i386 libgtk2.0-0:i386 libpangox-1.0-0:i386 libpangoxft-1.0-0:i386 libidn11:i386 python3-pip python3-dev
+          sudo update-java-alternatives -s java-1.7.0-openjdk-amd64 || sudo update-java-alternatives -s java-1.17.0-openjdk-amd64 || true
+
+      - name: Instalar Buildozer y Cython
+        run: |
+          pip3 install --upgrade pip
+          pip3 install cython==0.29.33
+          pip3 install buildozer
+
+      - name: Compilar con Buildozer
+        run: |
+          yes | buildozer -v android debug
 
       - name: Subir APK como artefacto
         uses: actions/upload-artifact@v4
