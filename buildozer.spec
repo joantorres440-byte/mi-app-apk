@@ -47,4 +47,4 @@ android.archs = arm64-v8a
 android.accept_sdk_license = True
 
 # (str) python-for-android branch to use
-p4a.branch = release-2023.12.3
+p4a.branch = master
