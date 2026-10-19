@@ -49,5 +49,5 @@ android.accept_sdk_license = True
 # (str) python-for-android branch to use
 p4a.branch = master
 
-# Force stable python version for android packaging
-p4a.bootstrap = sdl2
+# (bool) Build parallel extensions to optimize build time and memory usage
+build_ext_parallel = True
