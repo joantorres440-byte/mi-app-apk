@@ -13,7 +13,6 @@ jobs:
 
       - name: Preparar Java y Dependencias
         run: |
-          sudo dpkg --add-architecture i386
           sudo apt-get update
           sudo apt-get install -y openjdk-17-jdk git zip unzip build-essential ccache python3-pip python3-dev libffi-dev libssl-dev zlib1g-dev
 
@@ -25,7 +24,9 @@ jobs:
 
       - name: Compilar con Buildozer
         run: |
-          yes | buildozer -v android debug
+          buildozer -v android debug
+        env:
+          ACCEPT_BUILD_TOOLS_CHECKSUM: "true"
 
       - name: Subir APK como artefacto
         uses: actions/upload-artifact@v4
