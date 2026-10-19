@@ -31,7 +31,6 @@ jobs:
             libswscale-dev \
             libsm6 \
             libxext6 \
-            libgstreamer1.0-dev \
             zlib1g-dev \
             openjdk-17-jdk \
             autoconf \
