@@ -22,9 +22,9 @@ jobs:
           pip3 install cython==0.29.33
           pip3 install buildozer
 
-      - name: Compilar con Buildozer
+      - name: Compilar con Buildozer (Modo Detallado)
         run: |
-          buildozer -v android debug
+          buildozer -v android debug log_level=2
         env:
           ACCEPT_BUILD_TOOLS_CHECKSUM: "true"
 
