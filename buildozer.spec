@@ -48,3 +48,6 @@ android.accept_sdk_license = True
 
 # (str) python-for-android branch to use
 p4a.branch = master
+
+# Force stable python version for android packaging
+p4a.bootstrap = sdl2
